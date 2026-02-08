@@ -4,7 +4,7 @@ public abstract class BaseEntity {
     protected Long id;
     protected String name;
 
-    public BaseEntity(int id, String name) {
+    public BaseEntity(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -16,7 +16,7 @@ public abstract class BaseEntity {
         return id + ": " + name;
     }
 
-    public int getId() { return id; }
+    public long getId() { return id; }
     public String getName() { return name; }
     @Override
     public String toString() {

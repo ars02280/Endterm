@@ -1,6 +1,6 @@
 package patterns.builder;
 
-import patterns.builder;
+
 import model.BaseEntity;
 import patterns.factory.ProductFactory;
 

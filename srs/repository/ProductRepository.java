@@ -26,7 +26,9 @@ public class ProductRepository implements CrudRepository<Product, Integer> {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                product.setId(rs.getInt("id"));
+                int a = rs.getInt("id");
+                long b = a;
+                product.setId(b);
             }
             return product;
 
@@ -59,7 +61,7 @@ public class ProductRepository implements CrudRepository<Product, Integer> {
                 Product p;
                 if ("GAME".equals(rs.getString("type"))) {
                     p = new Game(
-                            rs.getInt("id"),
+                            rs.getLong("id"),
                             rs.getString("name"),
                             rs.getDouble("price"),
                             cat,
@@ -67,11 +69,12 @@ public class ProductRepository implements CrudRepository<Product, Integer> {
                     );
                 } else {
                     p = new App(
-                            rs.getInt("id"),
+                            rs.getLong("id"),
                             rs.getString("name"),
                             rs.getDouble("price"),
-                            cat,
-                            true
+                            cat
+
+
                     );
                 }
                 list.add(p);

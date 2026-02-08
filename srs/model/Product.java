@@ -1,12 +1,12 @@
 package model;
 
 public abstract class Product implements PricedItem  {
-    private int id;
+    private Long id;
     private String name;
     private double price;
     private Category category;
 
-    protected Product(int id, String name, double price, Category category) {
+    protected Product(Long id, String name, double price, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -23,8 +23,8 @@ public abstract class Product implements PricedItem  {
     }
 
     // encapsulation
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() { return name; }
     public double getPrice() { return price; }

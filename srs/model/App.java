@@ -3,7 +3,7 @@ package model;
 public class App extends Product {
     private boolean paid;
 
-    public App(int id, String name, double price, Category category, boolean paid) {
+    public App(long id, String name, double price, Category category) {
         super(id, name, price, category);
         this.paid = paid;
     }
@@ -12,6 +12,8 @@ public class App extends Product {
     public String getType() {
         return "APP";
     }
+
+
 
     @Override
     public String getDescription() {

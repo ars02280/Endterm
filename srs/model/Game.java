@@ -3,7 +3,7 @@ package model;
 public class Game extends Product {
     private String genre;
 
-    public Game(int id, String name, double price, Category category, String genre) {
+    public Game(Long id, String name, double price, Category category, String genre) {
         super(id, name, price, category);
         this.genre = genre;
     }

@@ -1,13 +1,14 @@
 package patterns.factory;
 
-import model.BaseEntity;
+import model.*;
 
- class ProductFactory {
 
-    public static BaseEntity create(String type, Long id, String name, double value) {
+public class ProductFactory {
+
+    public static Product create(String type, Long id, String name, double price, Category category, String genre) {
         return switch (type.toUpperCase()) {
-            case "GAME" -> new GameProduct(id, name, value);
-            case "APP" -> new AppProduct(id, name, value);
+            case "GAME" -> new Game(id, name, price, category, genre);
+            case "APP" -> new App(id, name, price,category);
             default -> throw new IllegalArgumentException("Unknown product type");
         };
     }
