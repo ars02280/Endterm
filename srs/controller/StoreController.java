@@ -5,7 +5,7 @@ import model.Category;
 import model.Game;
 import service.ProductService;
 
-public class StoreController {
+public class    StoreController {
 
     private final ProductService service;
 

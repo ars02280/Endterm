@@ -1,5 +1,9 @@
 package patterns.builder;
 
+import patterns.builder;
+import model.BaseEntity;
+import patterns.factory.ProductFactory;
+
 public class ProductBuilder {
     private Long id;
     private String name;
