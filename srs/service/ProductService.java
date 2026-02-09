@@ -7,3 +7,4 @@ public interface ProductService {
     Product add(Product product);
     List<Product> getAll();
 }
+    

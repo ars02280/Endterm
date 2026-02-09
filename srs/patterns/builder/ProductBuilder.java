@@ -1,14 +1,18 @@
 package patterns.builder;
 
-
 import model.BaseEntity;
+import model.Category;
+import model.Product;
 import patterns.factory.ProductFactory;
 
 public class ProductBuilder {
+
     private Long id;
     private String name;
     private String type;
     private double value;
+    private Category category;
+    private String extra; // например size / weight
 
     public ProductBuilder id(Long id) {
         this.id = id;
@@ -30,7 +34,24 @@ public class ProductBuilder {
         return this;
     }
 
-    public BaseEntity build() {
-        return ProductFactory.create(type, id, name, value);
+    public ProductBuilder category(Category category) {
+        this.category = category;
+        return this;
+    }
+
+    public ProductBuilder extra(String extra) {
+        this.extra = extra;
+        return this;
+    }
+
+    public Product build() {
+        return ProductFactory.create(
+                type,
+                id,
+                name,
+                value,
+                category,
+                extra
+        );
     }
 }

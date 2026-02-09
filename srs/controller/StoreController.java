@@ -17,10 +17,12 @@ public class    StoreController {
         Category games = new Category(1, "Games");
         Category apps = new Category(2, "Apps");
 
-        service.add(new Game(0, "CS2", 1.0, games, "Shooter"));
-        service.add(new App(0, "Notion", 5.0, apps, true));
+        service.add(new Game(0L, "CS2", 1.0, games, "Shooter"));
+        service.add(new App(2L, "Notion", 5.0, apps));
+        service.add(new App(3L, "3Drender", 10.0, apps));
+        service.add(new Game(4L, "Minecraft", 15.0, games,"Sandbox"));
         try {
-            service.add(new Game(0, "BrokenGame", -5, games, "RPG"));
+            service.add(new Game(0L, "BrokenGame", -5, games, "RPG"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
