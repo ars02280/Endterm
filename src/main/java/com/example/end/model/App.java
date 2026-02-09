@@ -20,6 +20,11 @@ public class App extends Product {
         return "App: " + getName() + ", paid=" + paid;
     }
 
+    @Override
+    public String getExtra() {
+        return String.valueOf(paid);
+    }
+
     public boolean isPaid() { return paid; }
     public void setPaid(boolean paid) { this.paid = paid; }
 }

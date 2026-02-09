@@ -8,4 +8,5 @@ public interface CrudRepository<T, ID> {
     List<T> getAll();
     void update(T entity);
     void delete(ID id);
+    T getByName(String name);
 }

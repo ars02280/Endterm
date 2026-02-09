@@ -20,6 +20,11 @@ public class Game extends Product {
         return "Game: " + getName() + ", genre=" + genre;
     }
 
+    @Override
+    public String getExtra() {
+        return genre;
+    }
+
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
 }

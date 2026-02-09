@@ -17,6 +17,8 @@ public abstract class Product implements PricedItem {
 
     public abstract String getType();
     public abstract String getDescription();
+    // Возвращает представление "extra": для GAME это genre, для APP — строковое значение paid
+    public abstract String getExtra();
 
     public double applyDiscount(double percent) {
         return price * (1 - percent / 100);
