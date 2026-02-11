@@ -1,6 +1,6 @@
 package com.example.end.model;
 
-public class ZCategory {
+public class Category {
     private Integer id;
     private String name;
 
