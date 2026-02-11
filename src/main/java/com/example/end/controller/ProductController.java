@@ -40,7 +40,6 @@ public class ProductController {
                 .name(request.getName())
                 .price(request.getPrice())
                 .category(new Category(request.getCategoryId(), null))
-                .extra(request.getExtra())
                 .build();
         Product saved = productService.add(product);
         return ResponseEntity.created(URI.create("/api/products/" + saved.getId())).body(saved);
@@ -54,7 +53,6 @@ public class ProductController {
                 .name(request.getName())
                 .price(request.getPrice())
                 .category(new Category(request.getCategoryId(), null))
-                .extra(request.getExtra())
                 .build();
         productService.update(product);
         return ResponseEntity.noContent().build();

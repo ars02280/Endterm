@@ -1,13 +1,11 @@
 package com.example.end.model;
 
 public class Game extends Product {
-    private String genre;
 
     public Game() {}
 
-    public Game(Long id, String name, double price, Category category, String genre) {
+    public Game(Long id, String name, double price, Category category) {
         super(id, name, price, category);
-        this.genre = genre;
     }
 
     @Override
@@ -17,14 +15,6 @@ public class Game extends Product {
 
     @Override
     public String getDescription() {
-        return "Game: " + getName() + ", genre=" + genre;
+        return "Game: " + getName();
     }
-
-    @Override
-    public String getExtra() {
-        return genre;
-    }
-
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
 }

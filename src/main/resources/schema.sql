@@ -9,6 +9,5 @@ CREATE TABLE IF NOT EXISTS products (
                           price NUMERIC NOT NULL,
                           type VARCHAR(20) NOT NULL,
                           category_id INT NOT NULL,
-                          extra VARCHAR(255),
                           FOREIGN KEY (category_id) REFERENCES categories(id)
 );

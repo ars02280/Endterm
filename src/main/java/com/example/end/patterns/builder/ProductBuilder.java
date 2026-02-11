@@ -10,7 +10,6 @@ public class ProductBuilder {
     private String type;
     private double price;
     private Category category;
-    private String extra;
 
     public ProductBuilder id(Long id) {
         this.id = id;
@@ -37,12 +36,8 @@ public class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder extra(String extra) {
-        this.extra = extra;
-        return this;
-    }
 
     public Product build() {
-        return ProductFactory.create(type, id, name, price, category, extra);
+        return ProductFactory.create(type, id, name, price, category);
     }
 }

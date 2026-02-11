@@ -22,7 +22,7 @@ public class ProductRepository implements CrudRepository<Product, Long> {
 
     @Override
     public Product create(Product product) {
-        String sql = "INSERT INTO products(name, price, type, category_id, extra) VALUES (?, ?, ?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO products(name, price, type, category_id) VALUES (?, ?, ?, ?) RETURNING id";
         try (Connection conn = databaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
@@ -30,7 +30,7 @@ public class ProductRepository implements CrudRepository<Product, Long> {
             stmt.setDouble(2, product.getPrice());
             stmt.setString(3, product.getType());
             stmt.setInt(4, product.getCategory().getId());
-            stmt.setString(5, product.getExtra());
+
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -44,7 +44,7 @@ public class ProductRepository implements CrudRepository<Product, Long> {
 
     @Override
     public Product getById(Long id) {
-        String sql = "SELECT p.id, p.name, p.price, p.type, p.category_id, p.extra, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = ?";
+        String sql = "SELECT p.id, p.name, p.price, p.type, p.category_id, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = ?";
         try (Connection conn = databaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, id);
@@ -61,7 +61,7 @@ public class ProductRepository implements CrudRepository<Product, Long> {
     @Override
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT p.id, p.name, p.price, p.type, p.category_id, p.extra, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id";
+        String sql = "SELECT p.id, p.name, p.price, p.type, p.category_id, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id";
         try (Connection conn = databaseConfig.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -76,15 +76,14 @@ public class ProductRepository implements CrudRepository<Product, Long> {
 
     @Override
     public void update(Product product) {
-        String sql = "UPDATE products SET name = ?, price = ?, type = ?, category_id = ?, extra = ? WHERE id = ?";
+        String sql = "UPDATE products SET name = ?, price = ?, type = ?, category_id = ? WHERE id = ?";
         try (Connection conn = databaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
             stmt.setDouble(2, product.getPrice());
             stmt.setString(3, product.getType());
             stmt.setInt(4, product.getCategory().getId());
-            stmt.setString(5, product.getExtra());
-            stmt.setLong(6, product.getId());
+            stmt.setLong(5, product.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error updating product: " + e.getMessage(), e);
@@ -105,7 +104,7 @@ public class ProductRepository implements CrudRepository<Product, Long> {
 
     @Override
     public Product getByName(String name) {
-        String sql = "SELECT p.id, p.name, p.price, p.type, p.category_id, p.extra, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name = ?";
+        String sql = "SELECT p.id, p.name, p.price, p.type, p.category_id, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name = ?";
         try (Connection conn = databaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
@@ -121,14 +120,13 @@ public class ProductRepository implements CrudRepository<Product, Long> {
 
     private Product mapResultSetToProduct(ResultSet rs) throws SQLException {
         Category category = new Category(rs.getInt("category_id"), rs.getString("category_name"));
-        String extra = rs.getString("extra");
+
         return ProductFactory.create(
                 rs.getString("type"),
                 rs.getLong("id"),
                 rs.getString("name"),
                 rs.getDouble("price"),
-                category,
-                extra
+                category
         );
     }
 }

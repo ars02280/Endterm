@@ -3,9 +3,9 @@ package com.example.end.controller.dto;
 public class ProductRequest {
     private String name;
     private double price;
-    private String type; // GAME or APP
-    private Integer categoryId; // make nullable to validate missing
-    private String extra; // genre for GAME, "true/false" for APP
+    private String type;
+    private Integer categoryId;
+
 
     public ProductRequest() {}
 
@@ -17,6 +17,4 @@ public class ProductRequest {
     public void setType(String type) { this.type = type; }
     public Integer getCategoryId() { return categoryId; }
     public void setCategoryId(Integer categoryId) { this.categoryId = categoryId; }
-    public String getExtra() { return extra; }
-    public void setExtra(String extra) { this.extra = extra; }
 }
