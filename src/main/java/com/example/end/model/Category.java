@@ -4,7 +4,6 @@ public class ZCategory {
     private Integer id;
     private String name;
 
-    public Category() {}
 
     public Category(Integer id, String name) {
         this.id = id;
