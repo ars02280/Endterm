@@ -3,6 +3,7 @@ package com.example.end.service;
 import com.example.end.exception.InvalidInputException;
 import com.example.end.exception.ResourceNotFoundException;
 import com.example.end.model.Product;
+import com.example.end.patterns.singleton.InMemoryCache;
 import com.example.end.repository.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final CrudRepository<Product, Long> repository;
     private final CategoryService categoryService;
+    private static final String ALL_PRODUCTS_CACHE_KEY = "all_products";
 
     @Autowired
     public ProductServiceImpl(CrudRepository<Product, Long> repository, CategoryService categoryService) {
@@ -36,12 +38,21 @@ public class ProductServiceImpl implements ProductService {
         if (existing != null) {
             throw new InvalidInputException("Product with name already exists: " + product.getName());
         }
-        return repository.create(product);
+        Product saved = repository.create(product);
+        InMemoryCache.getInstance().remove(ALL_PRODUCTS_CACHE_KEY);
+        return saved;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Product> getAll() {
-        return repository.getAll();
+        InMemoryCache cache = InMemoryCache.getInstance();
+        List<Product> products = (List<Product>) cache.get(ALL_PRODUCTS_CACHE_KEY);
+        if (products == null) {
+            products = repository.getAll();
+            cache.put(ALL_PRODUCTS_CACHE_KEY, products);
+        }
+        return products;
     }
 
     @Override
@@ -65,11 +76,13 @@ public class ProductServiceImpl implements ProductService {
             throw new InvalidInputException("Product name is already used by another product: " + product.getName());
         }
         repository.update(product);
+        InMemoryCache.getInstance().remove(ALL_PRODUCTS_CACHE_KEY);
     }
 
     @Override
     public void delete(Long id) {
         repository.delete(id);
+        InMemoryCache.getInstance().remove(ALL_PRODUCTS_CACHE_KEY);
     }
 
     @Override
